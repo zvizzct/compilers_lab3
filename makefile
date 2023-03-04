@@ -1,8 +1,8 @@
 # Executable file name
-EXE = preprocesor
+EXE = main
 
 # Source file name
-SRC = preprocesor.c
+SRC = main.c
 
 # Header file name
 INC = src/utilsFiles.h
