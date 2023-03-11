@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "array": "cpp",
+        "string_view": "cpp",
+        "initializer_list": "cpp",
+        "utility": "cpp",
+        "stack.h": "c",
+        "stdio.h": "c",
+        "utilsaction.h": "c",
+        "istream": "c",
+        "streambuf": "c"
+    }
+}
