@@ -1,6 +1,12 @@
 
-#include "actionTable.c"
+#include "actionTable.h"
 #include "gotoTable.c"
+#include "enum.h"
+
+production_rule *initProductions()
+{
+    production_rule productions[3] = {{S, {E}, 1}, {E, {E, PLUS, LEFT_PARENTHESIS, E, RIGHT_PARENTHESIS}, 5}, {E, {NUM}, 1}};
+}
 
 void setUpTables()
 {
@@ -54,34 +60,34 @@ void setUpTables()
     set_reduce_action(11, RIGHT_PARENTHESIS, 1);
 }
 
-void setUpTables_lab()
-{
-    // State 0
-    set_shift_action(0, NUM, 6);
-    set_shift_action(0, LEFT_PARENTHESIS, 10);
-    goto_table[0][E] = 1;
-    goto_table[0][T] = 8;
-    goto_table[0][F] = 9;
+// void setUpTables_lab()
+// {
+//     // State 0
+//     set_shift_action(0, NUM, 6);
+//     set_shift_action(0, LEFT_PARENTHESIS, 10);
+//     goto_table[0][E] = 1;
+//     goto_table[0][T] = 8;
+//     goto_table[0][F] = 9;
 
-    // State 1
-    set_shift_action(1, PLUS, 2);
-    set_accept_action(1, ACC);
+//     // State 1
+//     set_shift_action(1, PLUS, 2);
+//     set_accept_action(1, ACC);
 
-    // State 2
-    set_shift_action(2, NUM, 6);
-    goto_table[2][T] = 3;
-    goto_table[2][F] = 7;
+//     // State 2
+//     set_shift_action(2, NUM, 6);
+//     goto_table[2][T] = 3;
+//     goto_table[2][F] = 7;
 
-    // State 3
-    set_shift_action(3, MULT, 4);
-    set_reduce_action(3, PLUS, 0);
-    set_reduce_action(3, ACC, 0);
+//     // State 3
+//     set_shift_action(3, MULT, 4);
+//     set_reduce_action(3, PLUS, 0);
+//     set_reduce_action(3, ACC, 0);
 
-    // State 4
-    set_shift_action(4, NUM, 6);
-    set_shift_action(4, LEFT_PARENTHESIS, 10);
-    goto_table[4][F] = 5;
+//     // State 4
+//     set_shift_action(4, NUM, 6);
+//     set_shift_action(4, LEFT_PARENTHESIS, 10);
+//     goto_table[4][F] = 5;
 
-    // State 5
-    set_reduce_action(5, MULT, 1);
-}
+//     // State 5
+//     set_reduce_action(5, MULT, 1);
+// }

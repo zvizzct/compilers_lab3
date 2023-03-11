@@ -1,3 +1,8 @@
+#include "enum.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 #ifndef STACK_H
 #define STACK_H
 
@@ -6,8 +11,8 @@
 
 typedef struct
 {
-    char str[MAX_STR_LENGTH];
-    int num;
+    int Symbol;
+    int state;
 } StackElement;
 
 typedef struct

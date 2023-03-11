@@ -1,24 +1,4 @@
-
-// #include "stack.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "enum.c"
-
-#define MAX_SIZE 100
-#define MAX_STR_LENGTH 50
-
-typedef struct
-{
-    Symbol symbol; // TODO change this to a enum
-    int num;
-} StackElement;
-
-typedef struct
-{
-    StackElement data[MAX_SIZE];
-    int top;
-} Stack;
+#include "stack.h"
 
 /**
  * Initialize the stack

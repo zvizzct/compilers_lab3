@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include "src/utilsFiles.c"
 #include "src/stack.h"
-#include "src/actionTable.c"
+#include "src/actionTable.h"
 #include "src/gotoTable.c"
 
 int main(int argc, char const *argv[])
@@ -18,9 +18,10 @@ int main(int argc, char const *argv[])
 
     // Initialize stack
     Stack stack;
-    StackElement initial_element = {-1, 0}; // symbol, state but why -1?
-    stack.entries[0] = initial_element;     // this is a push?
-
+    StackElement initial_element = {1, 0}; // symbol, state but why -1?
+                                           // this is a push?
+    init(&stack);
+    push(&stack, initial_element);
     // Initialize tables
     init_action_table();
     init_goto_table();
@@ -30,20 +31,19 @@ int main(int argc, char const *argv[])
     int num_token = 3;
     int current_state;
 
-    for (int i = 0; i < num_token; i++)
+    int i = 0;
+    while (tokens[i] != NULL)
     {
-        current_state = getTopStack(stack).state;
+        current_state = peek(&stack).state;
         Action current_action = action_table[current_state][tokens[i]];
         if (current_action.type == REDUCE)
         {
             reduce(productions[current_action.state_or_production], stack);
-            // pop num
-            // push (f,0)
         }
         else if (current_action.type == SHIFT)
         {
             shift(stack, tokens[i], current_action.state_or_production);
-            continue;
+            i++;
         }
         else if (current_action.type == ACCEPT)
         {

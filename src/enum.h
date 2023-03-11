@@ -1,10 +1,21 @@
 
+
 enum ActionType
 {
     SHIFT,
     REDUCE,
     ACCEPT,
     ERROR
+};
+enum Symbol
+{
+    S,
+    E,
+    PLUS,
+    LEFT_PARENTHESIS,
+    RIGHT_PARENTHESIS,
+    NUM,
+    ACC,
 };
 
 // LAB
@@ -27,19 +38,3 @@ enum ActionType
 // }
 
 // THEORY
-
-enum Symbol
-{
-    S,
-    E,
-    PLUS,
-    LEFT_PARENTHESIS,
-    RIGHT_PARENTHESIS,
-    NUM,
-    ACC,
-};
-
-production_rule *initProductions()
-{
-    production_rule productions[3] = {{S, {E}, 1}, {E, {E, PLUS, LEFT_PARENTHESIS, E, RIGHT_PARENTHESIS}, 5}, {E, {NUM}, 1}};
-}

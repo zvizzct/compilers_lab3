@@ -1,3 +1,4 @@
+#include "enum.h"
 #define NUM_SYMBOLS 6
 #define NUM_STATES 20
 
