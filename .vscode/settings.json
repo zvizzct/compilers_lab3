@@ -1,0 +1,10 @@
+{
+  "files.associations": {
+    "stdlib.h": "c",
+    "stdio.h": "c",
+    "enum.c": "cpp",
+    "compare": "c",
+    "type_traits": "c",
+    "actiontable.h": "c"
+  }
+}
