@@ -6,7 +6,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "src/utilsFiles.h"
 #include "src/stack.h"
 #include "utilsAction.h"
 #include "action_table.h"
