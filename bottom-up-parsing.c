@@ -44,7 +44,6 @@ int main(int argc, char const *argv[])
     free(productions);
     free(output_file_name);
     free(input_file_name);
-    //free(productions_lab);
     fclose(output_file);
     return 0;
 }
