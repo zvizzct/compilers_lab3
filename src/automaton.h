@@ -2,6 +2,9 @@
 #include "stack.h"
 #include "processInput.h"
 
+/**
+ * Write the reduce action and the updated stack content in the outputfile
+*/
 void printReduce(FILE* output_file, production_rule production, int new_state, Stack *stack) {
     fprintf(output_file, "REDUCE: %s->%s", production.lhs, production.rhs);
     for (int i = 0; i < 12-strlen(production.rhs); i++)
@@ -26,6 +29,9 @@ void reduce(production_rule production, Stack *stack, int** goto_table, FILE *ou
     printReduce(output_file, production, new_state, stack);
 }
 
+/**
+ * Write the shift action and the updated stack content in the outputfile
+*/
 void printShift(FILE* output_file, Stack *stack, int next_state) {
     fprintf(output_file, "   SHIFT               %d           ", next_state);
     printStack(*stack, output_file);

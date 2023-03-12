@@ -10,19 +10,19 @@
 
 int main(int argc, char const *argv[])
 {
-    // Initialize productions rules
-    production_rule* productions_theory = createProductionRulesTheoryExemple();
-    //production_rule* productions_lab = createProductionRulesLab();
-
-    // Initialize tables
+    // Initialize productions rules and parsing table
+#if (CASE == THEORY)
+    production_rule* productions = createProductionRulesTheoryExemple();
     Action** action_table = create_action_table(12, 7);
     int ** goto_table = create_goto_table(12,7);
-    //Action** action_table = create_action_table(23, 10);
-    //int ** goto_table = create_goto_table(23,10);
-
-    // Set specific parser
     setUpTablesTheoryExemple(action_table, goto_table);
-    //setUpTablesLab(action_table, goto_table);
+#endif
+#if (CASE == LAB)
+    production_rule* productions = createProductionRulesLab();
+    Action** action_table = create_action_table(23, 10);
+    int ** goto_table = create_goto_table(23,10);
+    setUpTablesLab(action_table, goto_table);
+#endif
     
     // Setup file names
     char* input_file_name = getInputFileName(argv[1]);
@@ -36,12 +36,12 @@ int main(int argc, char const *argv[])
     Token tokens[250];
     int num_tokens = processInput(input_file, tokens);
 
-    runAutomaton(productions_theory, action_table, goto_table, tokens, num_tokens, output_file);
+    runAutomaton(productions, action_table, goto_table, tokens, num_tokens, output_file);
 
     // Free the memory space
     freeActionTable(action_table, 12);
     freeGotoTable(goto_table, 12);
-    free(productions_theory);
+    free(productions);
     free(output_file_name);
     free(input_file_name);
     //free(productions_lab);
