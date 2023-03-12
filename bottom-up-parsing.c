@@ -16,6 +16,7 @@ int main(int argc, char const *argv[])
     Action **action_table = create_action_table(12, 7);
     int **goto_table = create_goto_table(12, 7);
     setUpTablesTheoryExemple(action_table, goto_table);
+
 #endif
 #if (CASE == LAB)
     production_rule *productions = createProductionRulesLab();
