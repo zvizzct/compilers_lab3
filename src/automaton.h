@@ -3,21 +3,36 @@
 #include "processInput.h"
 
 /**
- * Write the reduce action and the updated stack content in the outputfile
-*/
-void printReduce(FILE* output_file, production_rule production, int new_state, Stack *stack) {
+ * @brief Write the reduce action and the updated stack content in the output file
+ * @param output_file Output file where the information will be written
+ * @param production Production rule used for reducing
+ * @param new_state New state of the stack after reducing
+ * @param stack Pointer to the stack being used
+ */
+void printReduce(FILE *output_file, production_rule production, int new_state, Stack *stack)
+{
     fprintf(output_file, "REDUCE: %s->%s", production.lhs, production.rhs);
-    for (int i = 0; i < 12-strlen(production.rhs); i++)
+    for (int i = 0; i < 12 - strlen(production.rhs); i++)
     {
-        if (i == 6-strlen(production.rhs)) fprintf(output_file, "|");
+        if (i == 6 - strlen(production.rhs))
+            fprintf(output_file, "|");
         fprintf(output_file, " ");
     }
-    if (new_state < 10) fprintf(output_file, "%d      ", new_state);
-    else fprintf(output_file, "%d     ", new_state);
+    if (new_state < 10)
+        fprintf(output_file, "%d      ", new_state);
+    else
+        fprintf(output_file, "%d     ", new_state);
     printStack(*stack, output_file);
 }
 
-void reduce(production_rule production, Stack *stack, int** goto_table, FILE *output_file)
+/**
+ * @brief Reduce the stack according to the production rule
+ * @param production Production rule used for reducing
+ * @param stack Pointer to the stack being used
+ * @param goto_table GOTO table for the automaton being used
+ * @param output_file Output file where the information will be written
+ */
+void reduce(production_rule production, Stack *stack, int **goto_table, FILE *output_file)
 {
     StackElement popped;
     for (int i = 0; i < production.rhs_len; i++)
@@ -26,20 +41,33 @@ void reduce(production_rule production, Stack *stack, int** goto_table, FILE *ou
     }
     int new_current_state = peek(stack).state;
     int new_state = goto_table[new_current_state][production.lhs_index];
-    StackElement* new_element = createStackElement(production.lhs, new_state);
+    StackElement *new_element = createStackElement(production.lhs, new_state);
     push(stack, new_element);
     printReduce(output_file, production, new_state, stack);
 }
 
 /**
- * Write the shift action and the updated stack content in the outputfile
-*/
-void printShift(FILE* output_file, Stack *stack, int next_state) {
-    if (next_state < 10) fprintf(output_file, "   SHIFT         |      %d      ", next_state);
-    else fprintf(output_file, "   SHIFT         |      %d     ", next_state);
+ * @brief Write the shift action and the updated stack content in the output file
+ * @param output_file Output file where the information will be written
+ * @param stack Pointer to the stack being used
+ * @param next_state Next state of the stack after shifting
+ */
+void printShift(FILE *output_file, Stack *stack, int next_state)
+{
+    if (next_state < 10)
+        fprintf(output_file, "   SHIFT         |      %d      ", next_state);
+    else
+        fprintf(output_file, "   SHIFT         |      %d     ", next_state);
     printStack(*stack, output_file);
 }
+/**
 
+ * @brief Shift the stack according to the token
+ * @param stack Pointer to the stack being used
+ * @param token_lexeme Lexeme of the token being shifted
+ * @param next_state Next state of the stack after shifting
+ * @param output_file Output file where the information will be written
+ */
 void shift(Stack *stack, char token_lexeme[], int next_state, FILE *output_file)
 {
     StackElement *new_element = createStackElement(token_lexeme, next_state);
@@ -47,12 +75,31 @@ void shift(Stack *stack, char token_lexeme[], int next_state, FILE *output_file)
     printShift(output_file, stack, next_state);
 }
 
-void printStateInput(FILE* output_file, int current_state, char token_lexeme[] ) {
-    if (current_state < 10) fprintf(output_file, "      %d         |        %s        |    ", current_state, token_lexeme);
-    else fprintf(output_file, "      %d        |        %s        |    ", current_state, token_lexeme);
+/**
+ * @brief Write the current state and current input token in the output file
+ * @param output_file Output file where the information will be written
+ * @param current_state Current state of the stack
+ * @param token_lexeme Lexeme of the token being processed
+ */
+void printStateInput(FILE *output_file, int current_state, char token_lexeme[])
+{
+    if (current_state < 10)
+        fprintf(output_file, "      %d         |        %s        |    ", current_state, token_lexeme);
+    else
+        fprintf(output_file, "      %d        |        %s        |    ", current_state, token_lexeme);
 }
 
-void runAutomaton(production_rule* productions, Action** action_table, int** goto_table, Token tokens[], int num_tokens, FILE *output_file) {
+/**
+ * @brief Runs the automaton for the given input tokens and writes the actions taken to the output file
+ * @param productions Array of production rules for the grammar
+ * @param action_table Table of actions for the LR parser
+ * @param goto_table Table of gotos for the LR parser
+ * @param tokens Array of tokens representing the input to be parsed
+ * @param num_tokens Number of tokens in the input
+ * @param output_file Output file where the actions taken will be written
+ */
+void runAutomaton(production_rule *productions, Action **action_table, int **goto_table, Token tokens[], int num_tokens, FILE *output_file)
+{
     // Initialize stack
     Stack *stack = createStack();
 
@@ -83,7 +130,8 @@ void runAutomaton(production_rule* productions, Action** action_table, int** got
         {
             printf("Input rejected, the sequence of tokens is not correct\n");
             fprintf(output_file, "   ERROR         |             |");
-            break;;
+            break;
+            ;
         }
     }
 }

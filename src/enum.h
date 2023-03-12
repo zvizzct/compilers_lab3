@@ -6,6 +6,7 @@
 #define LAB 1
 #endif
 
+// Change this value to switch between theory and lab grammar
 #ifndef CASE
 #define CASE LAB
 #endif
@@ -21,7 +22,7 @@ enum ActionType
     ERROR
 };
 
-//THEORY
+// Define an enumeration type called Symbol, with values depending on the value of CASE macro
 #if (CASE == THEORY)
 enum Symbol
 {
@@ -35,7 +36,7 @@ enum Symbol
 };
 #endif
 
-//LAB
+// Define an enumeration type called Symbol_lab, with values depending on the value of CASE macro
 #if (CASE == LAB)
 enum Symbol_lab
 {

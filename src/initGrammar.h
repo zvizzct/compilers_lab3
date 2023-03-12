@@ -2,15 +2,27 @@
 #include "gotoTable.h"
 
 #if (CASE == THEORY)
-production_rule* createProductionRulesTheoryExemple() {
-    production_rule* productions = malloc(3*sizeof(production_rule));
+
+/**
+ * @brief Creates production rules for the Theory example.
+ * @return A pointer to an array of production rules.
+ */
+production_rule *createProductionRulesTheoryExemple()
+{
+    production_rule *productions = malloc(3 * sizeof(production_rule));
     productions[0] = (production_rule){"S", S, "E", 1};
     productions[1] = (production_rule){"E", E, "E+(E)", 5};
     productions[2] = (production_rule){"E", E, "NUM", 1};
     return productions;
 }
 
-void setUpTablesTheoryExemple(Action** action_table, int** goto_table)
+/**
+ * @brief Sets up the action and goto tables for the Theory example
+ *
+ * @param action_table action_table A pointer to a pointer to an Action struct
+ * @param goto_table A pointer to a pointer to an int array.
+ */
+void setUpTablesTheoryExemple(Action **action_table, int **goto_table)
 {
     // State 0
     set_shift_action(action_table, 0, NUM, 1);
@@ -64,8 +76,14 @@ void setUpTablesTheoryExemple(Action** action_table, int** goto_table)
 #endif
 
 #if (CASE == LAB)
-production_rule* createProductionRulesLab() {
-    production_rule* productions = malloc(7*sizeof(production_rule));
+
+/**
+ * @brief Creates production rules for the Lab example.
+ * @return A pointer to an array of production rules.
+ */
+production_rule *createProductionRulesLab()
+{
+    production_rule *productions = malloc(7 * sizeof(production_rule));
     // To complete
     productions[0] = (production_rule){"S", S, "E", 1};
     productions[1] = (production_rule){"E", E, "E+T", 3};
@@ -77,8 +95,12 @@ production_rule* createProductionRulesLab() {
 
     return productions;
 }
-
-void setUpTablesLab(Action** action_table, int** goto_table)
+/**
+ * @brief Sets up the action and goto tables for the Lab example.
+ * @param action_table A pointer to a pointer to an Action struct.
+ * @param goto_table A pointer to a pointer to an int array.
+ */
+void setUpTablesLab(Action **action_table, int **goto_table)
 {
     // State 0
     set_shift_action(action_table, 0, NUM, 6);
@@ -115,7 +137,7 @@ void setUpTablesLab(Action** action_table, int** goto_table)
     set_reduce_action(action_table, 7, MULT, 4);
     set_reduce_action(action_table, 7, ACC, 4);
     // State 8
-    set_reduce_action(action_table, 8,PLUS, 2);
+    set_reduce_action(action_table, 8, PLUS, 2);
     set_shift_action(action_table, 8, MULT, 4);
     set_reduce_action(action_table, 8, ACC, 2);
     // State 9

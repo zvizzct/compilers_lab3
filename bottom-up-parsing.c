@@ -10,32 +10,33 @@
 
 int main(int argc, char const *argv[])
 {
-    // Initialize productions rules and parsing table
+// Initialize productions rules and parsing table
 #if (CASE == THEORY)
-    production_rule* productions = createProductionRulesTheoryExemple();
-    Action** action_table = create_action_table(12, 7);
-    int ** goto_table = create_goto_table(12,7);
+    production_rule *productions = createProductionRulesTheoryExemple();
+    Action **action_table = create_action_table(12, 7);
+    int **goto_table = create_goto_table(12, 7);
     setUpTablesTheoryExemple(action_table, goto_table);
 #endif
 #if (CASE == LAB)
-    production_rule* productions = createProductionRulesLab();
-    Action** action_table = create_action_table(23, 10);
-    int ** goto_table = create_goto_table(23,10);
+    production_rule *productions = createProductionRulesLab();
+    Action **action_table = create_action_table(23, 10);
+    int **goto_table = create_goto_table(23, 10);
     setUpTablesLab(action_table, goto_table);
 #endif
-    
+
     // Setup file names
-    char* input_file_name = getInputFileName(argv[1]);
-    char* output_file_name = getOutputFileName(input_file_name);
+    char *input_file_name = getInputFileName(argv[1]);
+    char *output_file_name = getOutputFileName(input_file_name);
 
     // Open files
     FILE *input_file = openFile(input_file_name, "r");
     FILE *output_file = openFile(output_file_name, "w");
 
-    // Get tokens 
+    // Get tokens
     Token tokens[250];
     int num_tokens = processInput(input_file, tokens);
 
+    // Run automaton to process tokens
     runAutomaton(productions, action_table, goto_table, tokens, num_tokens, output_file);
 
     // Free the memory space
@@ -45,5 +46,6 @@ int main(int argc, char const *argv[])
     free(output_file_name);
     free(input_file_name);
     fclose(output_file);
+
     return 0;
 }

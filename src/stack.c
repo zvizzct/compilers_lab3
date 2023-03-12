@@ -1,11 +1,11 @@
 #include "stack.h"
 
 /**
- * Initialize the stack
+ * @brief Initialize the stack
  * @param s the stack to be initialized
  * @return void
  */
-Stack* createStack()
+Stack *createStack()
 {
     Stack *s = malloc(sizeof(Stack));
     s->top = -1;
@@ -15,7 +15,7 @@ Stack* createStack()
 }
 
 /**
- * Check if the stack is empty
+ * @brief Check if the stack is empty
  * @param s the stack to be checked
  * @return int 1 if the stack is empty, 0 otherwise
  */
@@ -25,7 +25,7 @@ int isEmpty(Stack *s)
 }
 
 /**
- * Check if the stack is full
+ * @brief Check if the stack is full
  * @param s the stack to be checked
  * @return int 1 if the stack is full, 0 otherwise
  */
@@ -35,7 +35,7 @@ int isFull(Stack *s)
 }
 
 /**
- * Add an item to the stack
+ * @brief Add an item to the stack
  * @param s the stack to add the item to
  * @param item the item to be added to the stack
  * @return void
@@ -52,7 +52,7 @@ void push(Stack *s, StackElement *item)
 }
 
 /**
- * Remove and return the top item from the stack
+ * @brief Remove and return the top item from the stack
  * @param s the stack to remove the item from
  * @return StackElement the removed item from the top of the stack
  */
@@ -85,14 +85,16 @@ StackElement peek(Stack *s)
     return s->data[s->top];
 }
 
-StackElement* createStackElement(char symbol[], int state) {
+StackElement *createStackElement(char symbol[], int state)
+{
     StackElement *new_element = malloc(sizeof(new_element));
     strcpy(new_element->symbol, symbol);
     new_element->state = state;
     return new_element;
 }
 
-void printStack(Stack stack, FILE* output_file) {
+void printStack(Stack stack, FILE *output_file)
+{
     fprintf(output_file, "|     ");
     for (int i = 0; i <= stack.top; i++)
     {

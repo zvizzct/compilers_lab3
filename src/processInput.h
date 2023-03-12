@@ -17,8 +17,8 @@ typedef struct token
  * @param input_file the file containing the sequence of tokens
  * @param tokens an array which is going to store the tokens
  * @return the number of tokens contained in the input file
-*/
-int processInput(FILE* input_file, Token *tokens)
+ */
+int processInput(FILE *input_file, Token *tokens)
 {
     char line[MAX_TOKEN_LEN];
     char *pos;
@@ -35,11 +35,12 @@ int processInput(FILE* input_file, Token *tokens)
 
             // Extract lexeme
             int lexeme_len = strcspn(pos, "<,>");
-            if (lexeme_len > 0) {
+            if (lexeme_len > 0)
+            {
                 strncpy(tokens[i].lexeme, pos, lexeme_len);
                 tokens[i].lexeme[lexeme_len] = '\0';
                 pos += lexeme_len;
-                
+
                 // Skip delimiters
                 pos += strspn(pos, "<,>");
 
@@ -50,17 +51,22 @@ int processInput(FILE* input_file, Token *tokens)
                 pos += type_len;
 
                 // Get index
-                if (strcmp(tokens[i].type, "CAT_NUMBER") == 0) tokens[i].index = NUM;
-                else if (strcmp(tokens[i].lexeme, "+") == 0) tokens[i].index = PLUS;
-                else if (strcmp(tokens[i].lexeme, "(") == 0) tokens[i].index = LEFT_PARENTHESIS;
-                else if (strcmp(tokens[i].lexeme, ")") == 0) tokens[i].index = RIGHT_PARENTHESIS;
-            #if (CASE == LAB)
-                else if (strcmp(tokens[i].lexeme, "*") == 0) tokens[i].index = MULT;
-            #endif
+                if (strcmp(tokens[i].type, "CAT_NUMBER") == 0)
+                    tokens[i].index = NUM;
+                else if (strcmp(tokens[i].lexeme, "+") == 0)
+                    tokens[i].index = PLUS;
+                else if (strcmp(tokens[i].lexeme, "(") == 0)
+                    tokens[i].index = LEFT_PARENTHESIS;
+                else if (strcmp(tokens[i].lexeme, ")") == 0)
+                    tokens[i].index = RIGHT_PARENTHESIS;
+#if (CASE == LAB)
+                else if (strcmp(tokens[i].lexeme, "*") == 0)
+                    tokens[i].index = MULT;
+#endif
 
                 // Skip delimiters
                 pos += strspn(pos, "<,>");
-                
+
                 i++;
             }
         }
@@ -69,7 +75,7 @@ int processInput(FILE* input_file, Token *tokens)
     strcpy(tokens[i].type, "CAT_ESPECIAL_CHARACTER");
     tokens[i].index = ACC;
     i++;
-    
+
     fclose(input_file);
     return i;
 }
