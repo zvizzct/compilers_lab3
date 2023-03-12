@@ -1,5 +1,6 @@
 #include "initGrammar.h"
 #include "stack.h"
+#include "processInput.h"
 
 void reduce(production_rule production, Stack *stack, int** goto_table, FILE *output_file)
 {
@@ -22,7 +23,7 @@ void shift(Stack *stack, int token, int next_state, FILE *output_file)
     push(stack, new_element);
 }
 
-void runAutomaton(production_rule* productions, Action** action_table, int** goto_table, int tokens[], int num_tokens, FILE *output_file) {
+void runAutomaton(production_rule* productions, Action** action_table, int** goto_table, Token tokens[], int num_tokens, FILE *output_file) {
     // Initialize stack
     Stack stack;
     StackElement initial_element = {1, 0};
@@ -31,11 +32,11 @@ void runAutomaton(production_rule* productions, Action** action_table, int** got
     
     int current_state;
     int i = 0;
-    while (i < num_tokens && tokens[i] != 0)
+    while (i < num_tokens)
     {
         current_state = peek(&stack).state;
         fprintf(output_file, "current state : %d   ", current_state);
-        Action current_action = action_table[current_state][tokens[i]];
+        Action current_action = action_table[current_state][tokens[i].index];
         if (current_action.type == REDUCE)
         {
             reduce(productions[current_action.state_or_production], &stack, goto_table, output_file);
@@ -43,7 +44,7 @@ void runAutomaton(production_rule* productions, Action** action_table, int** got
         }
         else if (current_action.type == SHIFT)
         {
-            shift(&stack, tokens[i], current_action.state_or_production, output_file);
+            shift(&stack, tokens[i].index, current_action.state_or_production, output_file);
             i++;
             // print in the output file
         }
@@ -55,7 +56,7 @@ void runAutomaton(production_rule* productions, Action** action_table, int** got
         }
         else
         {
-            printf("Error\n");
+            printf("Input rejected\n");
             fprintf(output_file, "ERROR");
             break;;
         }

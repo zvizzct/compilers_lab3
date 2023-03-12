@@ -7,11 +7,11 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "${workspaceFolder}/main.c",
+                "${workspaceFolder}/bottom-up-parsing.c",
                 "${workspaceFolder}/src/actionTable.c",
                 "${workspaceFolder}/src/stack.c",
                 "-o",
-                "${workspaceFolder}/main"
+                "${workspaceFolder}/bottom-up-parsing"
             ],
             "options": {
                 "cwd": "${fileDirname}"

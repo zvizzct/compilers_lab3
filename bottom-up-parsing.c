@@ -4,8 +4,6 @@
  * content and save it to a new file.
  */
 
-#include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
 #include "src/utilsFiles.c"
 #include "src/automaton.h"
@@ -26,13 +24,17 @@ int main(int argc, char const *argv[])
     setUpTablesTheoryExemple(action_table, goto_table);
     //setUpTablesLab(action_table, goto_table);
     
-    // Get tokens 
-    // tokens should be a struc : char* lexeme, char* category later
-    int tokens[] = {NUM, PLUS, LEFT_PARENTHESIS,NUM, RIGHT_PARENTHESIS, PLUS, LEFT_PARENTHESIS, NUM, RIGHT_PARENTHESIS, ACC};
-    int num_tokens = sizeof(tokens)/sizeof(tokens[0]);
+    // Setup file names
+    char* input_file_name = getInputFileName(argv[1]);
+    char* output_file_name = getOutputFileName(input_file_name);
 
-    // Open output files
-    FILE *output_file = openFile("output/outputTheory.txt", "w");
+    // Open files
+    FILE *input_file = openFile(input_file_name, "r");
+    FILE *output_file = openFile(output_file_name, "w");
+
+    // Get tokens 
+    Token tokens[250];
+    int num_tokens = processInput(input_file, tokens);
 
     runAutomaton(productions_theory, action_table, goto_table, tokens, num_tokens, output_file);
 
@@ -40,6 +42,9 @@ int main(int argc, char const *argv[])
     freeActionTable(action_table, 12);
     freeGotoTable(goto_table, 12);
     free(productions_theory);
+    free(output_file_name);
+    free(input_file_name);
     //free(productions_lab);
+    fclose(output_file);
     return 0;
 }

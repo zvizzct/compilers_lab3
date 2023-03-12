@@ -6,10 +6,4 @@ current state : 4   SHIFT   next state : 5
 current state : 5   REDUCE   new state : 6
 current state : 6   SHIFT   next state : 7
 current state : 7   REDUCE   new state : 2
-current state : 2   SHIFT   next state : 3
-current state : 3   SHIFT   next state : 4
-current state : 4   SHIFT   next state : 5
-current state : 5   REDUCE   new state : 6
-current state : 6   SHIFT   next state : 7
-current state : 7   REDUCE   new state : 2
 current state : 2   ACCEPT
