@@ -14,6 +14,6 @@ To clean the executable generated during the compilation and compile it again, r
 
 To use the program, navigate to the directory where the files are located and run the command `./bottom-up-parsing [input_file]`. Replace "[input_file]" with the name of the file you want to parse.
 
-After running the command, the program will generate an output file called `[input_file]\_p3dbg.txt` in the output directory. This file will contain the parsed information.
+After running the command, the program will generate an output file called `[input_file]\_p3dbg.txt` in the test directory. This file will contain the parsed information.
 
 For example, to parse a file called "expression.txt", you would run the command `./bottom-up-parsing expression.txt`.

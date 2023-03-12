@@ -1,3 +1,0 @@
-Current state   |  Current input  |      Action         |  New state  |         Stack
-      0         |        1        |       SHIFT         |      6      |     <_,0> <1,6> 
-      6         |        -        |       ERROR         |             |
