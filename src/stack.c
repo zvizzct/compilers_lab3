@@ -93,7 +93,7 @@ StackElement* createStackElement(char symbol[], int state) {
 }
 
 void printStack(Stack stack, FILE* output_file) {
-    fprintf(output_file, "     ");
+    fprintf(output_file, "|     ");
     for (int i = 0; i <= stack.top; i++)
     {
         fprintf(output_file, "<%s,%d> ", stack.data[i].symbol, stack.data[i].state);
