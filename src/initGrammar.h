@@ -114,7 +114,8 @@ void setUpTablesLab(Action** action_table, int** goto_table)
     set_reduce_action(action_table, 7, MULT, 4);
     set_reduce_action(action_table, 7, ACC, 4);
     // State 8
-    set_shift_action(action_table, 8, PLUS, 4);
+    set_reduce_action(action_table, 8,PLUS, 2);
+    set_shift_action(action_table, 8, MULT, 4);
     set_reduce_action(action_table, 8, ACC, 2);
     // State 9
     set_reduce_action(action_table, 9, PLUS, 4);

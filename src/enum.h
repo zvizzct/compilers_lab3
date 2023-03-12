@@ -7,7 +7,7 @@
 #endif
 
 #ifndef CASE
-#define CASE THEORY
+#define CASE LAB
 #endif
 
 #ifndef SYMBOL_ENUM
