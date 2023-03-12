@@ -6,6 +6,7 @@
 
 #include <stdio.h>
 #include <stdlib.h> //
+#include <string.h>
 
 /**
  * @brief Open a file with a provided name
@@ -13,7 +14,7 @@
  * @param fileName The name of the file to open
  * @return FILE* Pointer to the opened file, or NULL if the file does not exist or no file name was provided
  */
-FILE *openFile(char *fileName)
+FILE *openFile(char *fileName, char* openMode)
 {
     // Check if fileName is NULL, if it is, print an error message and return NULL
     if (fileName == NULL)
@@ -21,12 +22,12 @@ FILE *openFile(char *fileName)
         return NULL;
     }
     // Try to open the file with the given fileName in read mode
-    FILE *fptr = fopen(fileName, "r");
+    FILE *fptr = fopen(fileName, openMode);
 
     // If the file doesn't exist, print an error message and return NULL
     if (fptr == NULL)
     {
-        printf("File does not exist %s\n", fileName);
+        printf("File does not exist or can't be opened %s\n", fileName);
         return NULL;
     }
     // If file exists, return the file pointer

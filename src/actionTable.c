@@ -1,54 +1,50 @@
 #include "actionTable.h"
+#include <stdlib.h>
 
-void init_action_table()
+Action** create_action_table(int num_state, int num_symbol)
 {
+    // Allocate the memory for the action table
+    Action** action_table = malloc(num_state * sizeof(Action*));
+    for (int i = 0; i < num_state; i++) {
+        action_table[i] = malloc(num_symbol * sizeof(Action));
+    }
+
     // initialize the action table
-    for (int i = 0; i < NUM_STATES; i++)
+    for (int i = 0; i < num_state; i++)
     {
-        for (int j = 0; j < NUM_SYMBOLS; j++)
+        for (int j = 0; j < num_symbol; j++)
         {
             action_table[i][j].type = ERROR;
             action_table[i][j].state_or_production = -1;
         }
     }
+    return action_table;
 }
-void set_shift_action(int state, int symbol, int next_state)
+void set_shift_action(Action** action_table, int state, int symbol, int next_state)
 {
     action_table[state][symbol].type = SHIFT;
     action_table[state][symbol].state_or_production = next_state;
 }
 
-void set_reduce_action(int state, int symbol, int production)
+void set_reduce_action(Action** action_table, int state, int symbol, int production)
 {
     action_table[state][symbol].type = REDUCE;
     action_table[state][symbol].state_or_production = production;
 }
 
-void set_accept_action(int state, int symbol)
+void set_accept_action(Action** action_table, int state, int symbol)
 {
     action_table[state][symbol].type = ACCEPT;
 }
 
-void set_error_action(int state, int symbol)
+void set_error_action(Action** action_table, int state, int symbol)
 {
     action_table[state][symbol].type = ERROR;
 }
 
-void reduce(production_rule production, Stack stack)
-{
-    StackElement popped;
-    for (int i = 0; i < production.rhs_len; i++)
-    {
-        popped = pop(&stack);
+void freeActionTable(Action** action_table, int num_state) {
+    for (int i = 0; i < num_state; i++) {
+        free(action_table[i]);
     }
-    int new_current_state = getStackTopState(stack);
-    int new_state = goto_table[new_current_state][production.lhs];
-    StackElement new_element = {production.lhs, new_state};
-    push(&stack, new_element);
-}
-
-void shift(Stack stack, int token, int next_state)
-{
-    StackElement new_element = {token, next_state};
-    push(&stack, new_element);
+    free(action_table);
 }

@@ -57,7 +57,7 @@ StackElement pop(Stack *s)
     if (isEmpty(s))
     {
         printf("Stack underflow\n");
-        StackElement empty = {"", -1};
+        StackElement empty = {-1, -1};
         return empty;
     }
     StackElement item = s->data[s->top];
@@ -75,7 +75,7 @@ StackElement peek(Stack *s)
     if (isEmpty(s))
     {
         printf("Stack is empty\n");
-        StackElement empty = {"", -1};
+        StackElement empty = {-1, -1};
         return empty;
     }
     return s->data[s->top];

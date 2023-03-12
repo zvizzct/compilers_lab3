@@ -5,6 +5,9 @@
     "enum.c": "cpp",
     "compare": "c",
     "type_traits": "c",
-    "actiontable.h": "c"
+    "actiontable.h": "c",
+    "gototable.h": "c",
+    "process.h": "c",
+    "automaton.h": "c"
   }
 }

@@ -6,53 +6,40 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include "src/utilsFiles.c"
-#include "src/stack.h"
-#include "src/actionTable.h"
-#include "src/gotoTable.c"
+#include "src/automaton.h"
 
 int main(int argc, char const *argv[])
 {
-    // Initialize grammar
-    production_rule productions[7] = initProductions();
+    // Initialize productions rules
+    production_rule* productions_theory = createProductionRulesTheoryExemple();
+    //production_rule* productions_lab = createProductionRulesLab();
 
-    // Initialize stack
-    Stack stack;
-    StackElement initial_element = {1, 0}; // symbol, state but why -1?
-                                           // this is a push?
-    init(&stack);
-    push(&stack, initial_element);
     // Initialize tables
-    init_action_table();
-    init_goto_table();
+    Action** action_table = create_action_table(12, 7);
+    int ** goto_table = create_goto_table(12,7);
+    //Action** action_table = create_action_table(23, 9);
+    //int ** goto_table = create_goto_table(23,9);
 
-    // Get tokens
-    int tokens[] = {LEFT_PARENTHESIS, NUM, PLUS};
-    int num_token = 3;
-    int current_state;
+    // Set specific parser
+    setUpTablesTheoryExemple(action_table, goto_table);
+    //setUpTablesLab(action_table, goto_table);
+    
+    // Get tokens 
+    // tokens should be a struc : char* lexeme, char* category later
+    int tokens[] = {NUM, PLUS, LEFT_PARENTHESIS,NUM, RIGHT_PARENTHESIS, PLUS, LEFT_PARENTHESIS, NUM, RIGHT_PARENTHESIS, ACC};
+    int num_tokens = sizeof(tokens)/sizeof(tokens[0]);
 
-    int i = 0;
-    while (tokens[i] != NULL)
-    {
-        current_state = peek(&stack).state;
-        Action current_action = action_table[current_state][tokens[i]];
-        if (current_action.type == REDUCE)
-        {
-            reduce(productions[current_action.state_or_production], stack);
-        }
-        else if (current_action.type == SHIFT)
-        {
-            shift(stack, tokens[i], current_action.state_or_production);
-            i++;
-        }
-        else if (current_action.type == ACCEPT)
-        {
-            printf("DFA is done\n");
-        }
-        else
-        {
-            printf("Error\n");
-        }
-    }
+    // Open output files
+    FILE *output_file = openFile("output/outputTheory.txt", "w");
+
+    runAutomaton(productions_theory, action_table, goto_table, tokens, num_tokens, output_file);
+
+    // Free the memory space
+    freeActionTable(action_table, 12);
+    freeGotoTable(goto_table, 12);
+    free(productions_theory);
+    //free(productions_lab);
     return 0;
 }

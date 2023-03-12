@@ -1,4 +1,5 @@
-
+#ifndef SYMBOL_ENUM
+#define SYMBOL_ENUM
 
 enum ActionType
 {
@@ -7,6 +8,8 @@ enum ActionType
     ACCEPT,
     ERROR
 };
+
+//LAB
 enum Symbol
 {
     S,
@@ -18,7 +21,7 @@ enum Symbol
     ACC,
 };
 
-// LAB
+// THEORY
 // enum Symbol_lab
 // {
 //     S,
@@ -37,4 +40,4 @@ enum Symbol
 //     production_rule productions_lab[7] = {{S, {E}, 1}, {E, {E, PLUS, T}, 3}, {E, {T}, 1}, {T, {T, MULT, F}, 3}, {T, {F}, 1}, {F, {LEFT_PARENTHESIS, E, RIGHT_PARENTHESIS}, 3}, {F, {NUM}, 1}};
 // }
 
-// THEORY
+#endif
