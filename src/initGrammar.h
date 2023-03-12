@@ -90,6 +90,7 @@ void setUpTablesLab(Action** action_table, int** goto_table)
     set_shift_action(action_table, 1, PLUS, 2);
     set_accept_action(action_table, 1, ACC);
     // State 2
+    set_shift_action(action_table, 2, LEFT_PARENTHESIS, 10);
     set_shift_action(action_table, 2, NUM, 6);
     goto_table[2][T] = 3;
     goto_table[2][F] = 7;
