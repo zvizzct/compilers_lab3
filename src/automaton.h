@@ -10,32 +10,31 @@ void reduce(production_rule production, Stack *stack, int** goto_table, FILE *ou
         popped = pop(stack);
     }
     int new_current_state = peek(stack).state;
-    int new_state = goto_table[new_current_state][production.lhs];
-    fprintf(output_file, "REDUCE   new state : %d", new_state);
-    StackElement new_element = {production.lhs, new_state};
+    int new_state = goto_table[new_current_state][production.lhs_index];
+    fprintf(output_file, "REDUCE: %s->%s         %d               ", production.lhs, production.rhs,new_state);
+    StackElement* new_element = createStackElement(production.lhs, new_state);
     push(stack, new_element);
 }
 
-void shift(Stack *stack, int token, int next_state, FILE *output_file)
+void shift(Stack *stack, char token_lexeme[], int next_state, FILE *output_file)
 {
-    fprintf(output_file, "SHIFT   next state : %d", next_state);
-    StackElement new_element = {token, next_state};
+    fprintf(output_file, "   SHIFT               %d               ", next_state);
+    StackElement *new_element = createStackElement(token_lexeme, next_state);
     push(stack, new_element);
 }
 
 void runAutomaton(production_rule* productions, Action** action_table, int** goto_table, Token tokens[], int num_tokens, FILE *output_file) {
     // Initialize stack
     Stack stack;
-    StackElement initial_element = {1, 0};
     init(&stack);
-    push(&stack, initial_element);
-    
+
+    fprintf(output_file, "Current state      Current input       Action           New state                          Stack\n");
     int current_state;
     int i = 0;
     while (i < num_tokens)
     {
         current_state = peek(&stack).state;
-        fprintf(output_file, "current state : %d   ", current_state);
+        fprintf(output_file, "      %d                  %s           ", current_state, tokens[i].lexeme);
         Action current_action = action_table[current_state][tokens[i].index];
         if (current_action.type == REDUCE)
         {
@@ -44,22 +43,22 @@ void runAutomaton(production_rule* productions, Action** action_table, int** got
         }
         else if (current_action.type == SHIFT)
         {
-            shift(&stack, tokens[i].index, current_action.state_or_production, output_file);
+            shift(&stack, tokens[i].lexeme, current_action.state_or_production, output_file);
             i++;
             // print in the output file
         }
         else if (current_action.type == ACCEPT)
         {
             printf("Input accepted\n");
-            fprintf(output_file, "ACCEPT");
+            fprintf(output_file, "   ACCEPT");
             break;
         }
         else
         {
             printf("Input rejected\n");
-            fprintf(output_file, "ERROR");
+            fprintf(output_file, "   ERROR");
             break;;
         }
-        fprintf(output_file, "\n");
+        printStack(stack, output_file);
     }
 }

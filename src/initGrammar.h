@@ -3,9 +3,9 @@
 
 production_rule* createProductionRulesTheoryExemple() {
     production_rule* productions = malloc(3*sizeof(production_rule));
-    productions[0] = (production_rule){S, {E}, 1};
-    productions[1] = (production_rule){E, {E, PLUS, LEFT_PARENTHESIS, E, RIGHT_PARENTHESIS}, 5};
-    productions[2] = (production_rule){E, {NUM}, 1};
+    productions[0] = (production_rule){"S", S, "E", 1};
+    productions[1] = (production_rule){"E", E, "E+(E)", 5};
+    productions[2] = (production_rule){"E", E, "NUM", 1};
     return productions;
 }
 

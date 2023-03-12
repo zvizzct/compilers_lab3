@@ -8,8 +8,9 @@ typedef struct
 
 typedef struct production_rule
 {
-    int lhs;
-    int rhs[6];
+    char lhs[1];
+    int lhs_index;
+    char rhs[10];
     int rhs_len;
 } production_rule;
 

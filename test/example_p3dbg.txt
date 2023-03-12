@@ -1,9 +1,10 @@
-current state : 0   SHIFT   next state : 1
-current state : 1   REDUCE   new state : 2
-current state : 2   SHIFT   next state : 3
-current state : 3   SHIFT   next state : 4
-current state : 4   SHIFT   next state : 5
-current state : 5   REDUCE   new state : 6
-current state : 6   SHIFT   next state : 7
-current state : 7   REDUCE   new state : 2
-current state : 2   ACCEPT
+Current state      Current input       Action           New state                          Stack
+      0                  1              SHIFT               1                  stack : <_,0> <1,1> 
+      1                  +           REDUCE: E->NUM         2                  stack : <_,0> <E,2> 
+      2                  +              SHIFT               3                  stack : <_,0> <E,2> <+,3> 
+      3                  (              SHIFT               4                  stack : <_,0> <E,2> <+,3> <(,4> 
+      4                  3              SHIFT               5                  stack : <_,0> <E,2> <+,3> <(,4> <3,5> 
+      5                  )           REDUCE: E->NUM         6                  stack : <_,0> <E,2> <+,3> <(,4> <E,6> 
+      6                  )              SHIFT               7                  stack : <_,0> <E,2> <+,3> <(,4> <E,6> <),7> 
+      7                  $           REDUCE: E->E+(E)         2                  stack : <_,0> <E,2> 
+      2                  $              ACCEPT

@@ -8,6 +8,8 @@
 void init(Stack *s)
 {
     s->top = -1;
+    StackElement *initial_element = createStackElement("_", 0);
+    push(s, initial_element);
 }
 
 /**
@@ -36,7 +38,7 @@ int isFull(Stack *s)
  * @param item the item to be added to the stack
  * @return void
  */
-void push(Stack *s, StackElement item)
+void push(Stack *s, StackElement *item)
 {
     if (isFull(s))
     {
@@ -44,7 +46,7 @@ void push(Stack *s, StackElement item)
         return;
     }
     s->top++;
-    s->data[s->top] = item;
+    s->data[s->top] = *item;
 }
 
 /**
@@ -57,8 +59,8 @@ StackElement pop(Stack *s)
     if (isEmpty(s))
     {
         printf("Stack underflow\n");
-        StackElement empty = {-1, -1};
-        return empty;
+        StackElement *empty = createStackElement("_", -1);
+        return *empty;
     }
     StackElement item = s->data[s->top];
     s->top--;
@@ -75,8 +77,24 @@ StackElement peek(Stack *s)
     if (isEmpty(s))
     {
         printf("Stack is empty\n");
-        StackElement empty = {-1, -1};
-        return empty;
+        StackElement *empty = createStackElement("_", -1);
+        return *empty;
     }
     return s->data[s->top];
+}
+
+StackElement* createStackElement(char symbol[], int state) {
+    StackElement *new_element = malloc(sizeof(new_element));
+    strcpy(new_element->symbol, symbol);
+    new_element->state = state;
+    return new_element;
+}
+
+void printStack(Stack stack, FILE* output_file) {
+    fprintf(output_file, "   stack : ");
+    for (int i = 0; i <= stack.top; i++)
+    {
+        fprintf(output_file, "<%s,%d> ", stack.data[i].symbol, stack.data[i].state);
+    }
+    fprintf(output_file, "\n");
 }
