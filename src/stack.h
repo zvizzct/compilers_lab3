@@ -21,7 +21,7 @@ typedef struct
     int top;
 } Stack;
 
-void init(Stack *s);
+Stack* createStack();
 int isEmpty(Stack *s);
 int isFull(Stack *s);
 void push(Stack *s, StackElement *item);

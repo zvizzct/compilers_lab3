@@ -12,13 +12,17 @@ typedef struct token
     int index;
 } Token;
 
-
+/**
+ * Read the input file and extract the tokens
+ * @param input_file the file containing the sequence of tokens
+ * @param tokens an array which is going to store the tokens
+ * @return the number of tokens contained in the input file
+*/
 int processInput(FILE* input_file, Token *tokens)
 {
     char line[MAX_TOKEN_LEN];
     char *pos;
     int i = 0;
-
 
     while (fgets(line, MAX_TOKEN_LEN, input_file) != NULL)
     {
@@ -50,6 +54,9 @@ int processInput(FILE* input_file, Token *tokens)
                 else if (strcmp(tokens[i].lexeme, "+") == 0) tokens[i].index = PLUS;
                 else if (strcmp(tokens[i].lexeme, "(") == 0) tokens[i].index = LEFT_PARENTHESIS;
                 else if (strcmp(tokens[i].lexeme, ")") == 0) tokens[i].index = RIGHT_PARENTHESIS;
+            #if (CASE == LAB)
+                else if (strcmp(tokens[i].lexeme, "*") == 0) tokens[i].index = MULT;
+            #endif
 
                 // Skip delimiters
                 pos += strspn(pos, "<,>");

@@ -5,11 +5,13 @@
  * @param s the stack to be initialized
  * @return void
  */
-void init(Stack *s)
+Stack* createStack()
 {
+    Stack *s = malloc(sizeof(Stack));
     s->top = -1;
     StackElement *initial_element = createStackElement("_", 0);
     push(s, initial_element);
+    return s;
 }
 
 /**
@@ -91,7 +93,7 @@ StackElement* createStackElement(char symbol[], int state) {
 }
 
 void printStack(Stack stack, FILE* output_file) {
-    fprintf(output_file, "   stack : ");
+    fprintf(output_file, "     ");
     for (int i = 0; i <= stack.top; i++)
     {
         fprintf(output_file, "<%s,%d> ", stack.data[i].symbol, stack.data[i].state);

@@ -48,6 +48,7 @@ enum Symbol_lab
     LEFT_PARENTHESIS,
     RIGHT_PARENTHESIS,
     NUM,
+    ACC,
 };
 #endif
 

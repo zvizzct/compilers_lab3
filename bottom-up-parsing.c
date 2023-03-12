@@ -17,8 +17,8 @@ int main(int argc, char const *argv[])
     // Initialize tables
     Action** action_table = create_action_table(12, 7);
     int ** goto_table = create_goto_table(12,7);
-    //Action** action_table = create_action_table(23, 9);
-    //int ** goto_table = create_goto_table(23,9);
+    //Action** action_table = create_action_table(23, 10);
+    //int ** goto_table = create_goto_table(23,10);
 
     // Set specific parser
     setUpTablesTheoryExemple(action_table, goto_table);
