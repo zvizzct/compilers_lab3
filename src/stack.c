@@ -85,6 +85,12 @@ StackElement peek(Stack *s)
     return s->data[s->top];
 }
 
+/**
+ * Creates a new StackElement with the given symbol and state.
+ * @param symbol The symbol to be added to the stack element.
+ * @param state The state to be added to the stack element.
+ * @return A pointer to the newly created StackElement.
+ */
 StackElement *createStackElement(char symbol[], int state)
 {
     StackElement *new_element = malloc(sizeof(new_element));
@@ -93,6 +99,12 @@ StackElement *createStackElement(char symbol[], int state)
     return new_element;
 }
 
+/**
+ * @brief Prints the contents of the stack to the given output file.
+ * @param stack The stack to be printed.
+ * @param output_file The file to which the stack contents will be printed.
+ * @return void
+ */
 void printStack(Stack stack, FILE *output_file)
 {
     fprintf(output_file, "|     ");

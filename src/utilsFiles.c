@@ -33,7 +33,11 @@ FILE *openFile(char *fileName, char *openMode)
     // If file exists, return the file pointer
     return fptr;
 }
-
+/**
+ * @brief Creates a new string containing the name of the input file.
+ * @param argv The command line argument containing the input file name.
+ * @return A pointer to a string containing the name of the input file.
+ */
 char *getInputFileName(const char *argv)
 {
     char *input_file_name = malloc(40 * sizeof(char));

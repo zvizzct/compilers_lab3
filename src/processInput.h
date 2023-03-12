@@ -13,7 +13,7 @@ typedef struct token
 } Token;
 
 /**
- * Read the input file and extract the tokens
+ * @brief Read the input file and extract the tokens
  * @param input_file the file containing the sequence of tokens
  * @param tokens an array which is going to store the tokens
  * @return the number of tokens contained in the input file
