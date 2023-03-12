@@ -8,6 +8,7 @@
     "actiontable.h": "c",
     "gototable.h": "c",
     "process.h": "c",
-    "automaton.h": "c"
+    "automaton.h": "c",
+    "stack.h": "c"
   }
 }
