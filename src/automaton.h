@@ -12,8 +12,8 @@ void printReduce(FILE* output_file, production_rule production, int new_state, S
         if (i == 6-strlen(production.rhs)) fprintf(output_file, "|");
         fprintf(output_file, " ");
     }
-    if (new_state < 10) fprintf(output_file, "%d           ", new_state);
-    else fprintf(output_file, "%d          ", new_state);
+    if (new_state < 10) fprintf(output_file, "%d      ", new_state);
+    else fprintf(output_file, "%d     ", new_state);
     printStack(*stack, output_file);
 }
 
@@ -35,8 +35,8 @@ void reduce(production_rule production, Stack *stack, int** goto_table, FILE *ou
  * Write the shift action and the updated stack content in the outputfile
 */
 void printShift(FILE* output_file, Stack *stack, int next_state) {
-    if (next_state < 10) fprintf(output_file, "   SHIFT         |      %d           ", next_state);
-    else fprintf(output_file, "   SHIFT         |      %d          ", next_state);
+    if (next_state < 10) fprintf(output_file, "   SHIFT         |      %d      ", next_state);
+    else fprintf(output_file, "   SHIFT         |      %d     ", next_state);
     printStack(*stack, output_file);
 }
 
@@ -48,15 +48,15 @@ void shift(Stack *stack, char token_lexeme[], int next_state, FILE *output_file)
 }
 
 void printStateInput(FILE* output_file, int current_state, char token_lexeme[] ) {
-    if (current_state < 10) fprintf(output_file, "      %d         |        %s        |  ", current_state, token_lexeme);
-    else fprintf(output_file, "      %d        |        %s        |  ", current_state, token_lexeme);
+    if (current_state < 10) fprintf(output_file, "      %d         |        %s        |    ", current_state, token_lexeme);
+    else fprintf(output_file, "      %d        |        %s        |    ", current_state, token_lexeme);
 }
 
 void runAutomaton(production_rule* productions, Action** action_table, int** goto_table, Token tokens[], int num_tokens, FILE *output_file) {
     // Initialize stack
     Stack *stack = createStack();
 
-    fprintf(output_file, "Current state   |  Current input  |    Action         |  New state       |         Stack\n");
+    fprintf(output_file, "Current state   |  Current input  |      Action         |  New state  |         Stack\n");
     int current_state;
     int i = 0;
     while (i < num_tokens)
@@ -76,13 +76,13 @@ void runAutomaton(production_rule* productions, Action** action_table, int** got
         else if (current_action.type == ACCEPT)
         {
             printf("Input accepted\n");
-            fprintf(output_file, "   ACCEPT        |                  |");
+            fprintf(output_file, "   ACCEPT        |             |");
             break;
         }
         else
         {
             printf("Input rejected\n");
-            fprintf(output_file, "   ERROR         |                  |");
+            fprintf(output_file, "   ERROR         |             |");
             break;;
         }
     }
