@@ -75,13 +75,13 @@ void runAutomaton(production_rule* productions, Action** action_table, int** got
         }
         else if (current_action.type == ACCEPT)
         {
-            printf("Input accepted\n");
+            printf("Input accepted, the sequence of tokens is correct\n");
             fprintf(output_file, "   ACCEPT        |             |");
             break;
         }
         else
         {
-            printf("Input rejected\n");
+            printf("Input rejected, the sequence of tokens is not correct\n");
             fprintf(output_file, "   ERROR         |             |");
             break;;
         }
